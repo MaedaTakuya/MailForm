@@ -18,7 +18,7 @@ $translation_list = array(
 // 必須項目の指定
 // 'formのname属性の値','formのname属性の値'の形式で記述。
 // 必須項目がなければコメントアウトしてください。
-$required = array('name','mail');
+$required = array('name','mail','checkbox');
 
 // メールアドレスのチェック
 // チェックする true / チェックしない false
