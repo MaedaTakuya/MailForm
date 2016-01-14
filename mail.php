@@ -42,7 +42,7 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト�
     if(is_array($val)){
       $val = implode(",", $val);
     }
-    array_push($confirmMsg,translation($key,$translation_list).'=>'.$val);
+    array_push($confirmMsg,translation($key,$translation_list)."\n".$val);
   }
 
   if (!empty($errMsg)) {//エラーメッセージの表示
@@ -51,7 +51,7 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト�
     }
   }else{//エラーメッセージがなければ確認画面の表示
     for($i = 0 ; $i < count($confirmMsg); $i++){
-      echo htmlspecialchars($confirmMsg[$i])."<br>";
+      echo "<p>".nl2br(htmlspecialchars($confirmMsg[$i]))."</p>\n";
     }
   }
 
