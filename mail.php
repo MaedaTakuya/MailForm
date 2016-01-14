@@ -17,10 +17,19 @@ if ($_POST){
   $body = nl2br($body);//改行文字の前に<br>タグを挿入する
 }
 
-  print '名前 => '.$name.'<br>';
-  print 'フリガナ => '.$kana.'<br>';
-  print 'メール => '.$mail.'<br>';
-  print 'セレクトボックス => '.$selectbox.'<br>';
-  print '性別 => '.$radio.'<br>';
-  print 'チェックボックス => '.$checkbox.'<br>';
-  print '本文 => '.$body.'<br>';
+
+
+// 言語設定、内部エンコーディングを指定する
+mb_language("japanese");
+mb_internal_encoding("UTF-8");
+ 
+$to = $mail;//送信先のメールアドレス
+$subject = "メールフォームからのお問い合わせ";//メールの件名
+$message = $name."(".$kana.")さんからのお問い合わせ。";//メールの本文
+$from = "From:xxx@xxx.com";//差し出しメールアドレス
+
+if(mb_send_mail($to,$subject,$message,$from)){
+  echo "メール送信に成功しました。";
+}else{
+  echo "メール送信に失敗しました。";
+}
