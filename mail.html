@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>PHP MailForm Xample</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+
+
+
+
+<body>
+<div class="container">
+  <form action="mail.php" method="post">
+
+    <div class="form-group">
+      <label>名前</label>
+      <input type="text" name="name" class="form-control" placeholder="名前を入力">
+    </div>
+
+    <div class="form-group">
+      <label>フリガナ</label>
+      <input type="text" name="kana" class="form-control" placeholder="フリガナを入力">
+    </div>
+
+    <div class="form-group">
+      <label>メール</label>
+      <input type="email" name="mail" class="form-control" placeholder="メールアドレスを入力">
+    </div>
+
+    <div class="form-group">
+      <label>セレクトボックス
+        <select name="selectbox">
+          <option value="選択肢１" selected>選択肢１</option>
+          <option value="選択肢２">選択肢２</option>
+          <option value="選択肢３">選択肢３</option>
+          <option value="選択肢４">選択肢４</option>
+          <option value="選択肢５">選択肢５</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="form-group">
+      <h2 class="h4">性別を選択してください</h2>
+      <label><input type="radio" name="radio" value="男性" checked="checked">男性</label>
+      <label><input type="radio" name="radio" value="女性">女性</label>
+    </div>
+
+    <div class="form-group">
+      <h2 class="h4">チェックボックスタイトル</h2>
+      <label><input type="checkbox" name="checkbox[]" value="選択01">選択01</label>
+      <label><input type="checkbox" name="checkbox[]" value="選択02">選択02</label>
+      <label><input type="checkbox" name="checkbox[]" value="選択03">選択03</label>
+    </div>
+
+    <div class="form-group">
+      <h2 class="h4">本文</h2>
+      <textarea name="body" class="form-control" rows="3"></textarea>
+    </div>
+
+    <button type="reset" class="btn btn-default">リセット</button>
+    <button type="submit" class="btn btn-default">送信する</button>
+  </form>
+</div>
+</body>
+</html>
