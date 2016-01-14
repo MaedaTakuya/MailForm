@@ -2,6 +2,7 @@
 include_once('mail_config.php');//設定ファイル
 // --- 変数一覧 ---
 $errMsg = array();//エラーメッセージ用配列。
+$confirmMsg = array();
 
 // --- 自作関数 ---
 // name属性の値を日本語に置き換え
@@ -16,7 +17,6 @@ function mailCheck($mail){
     return false;
   }
 }
-
 
 
 
@@ -42,14 +42,21 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト�
     if(is_array($val)){
       $val = implode(",", $val);
     }
-  print translation($key,$translation_list).'=>'.$val.'<br>';
+    array_push($confirmMsg,translation($key,$translation_list).'=>'.$val);
   }
-  // エラーメッセージを表示
-  if (!empty($errMsg)) {
+
+  if (!empty($errMsg)) {//エラーメッセージの表示
     for($i = 0 ; $i < count($errMsg); $i++){
       echo $errMsg[$i]."<br>";
     }
+  }else{//エラーメッセージがなければ確認画面の表示
+    for($i = 0 ; $i < count($confirmMsg); $i++){
+      echo htmlspecialchars($confirmMsg[$i])."<br>";
+    }
   }
+
+//ここにメール送信処理を追加予定。
+
 }else{
   header("Location: {$redirect_url}");
   exit;
