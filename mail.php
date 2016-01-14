@@ -8,6 +8,14 @@ $errMsg = array();//エラーメッセージ用配列。
 function translation($src, $dest){
   return array_search($src, $dest);
 }
+// メールアドレスの型チェック
+function mailCheck($mail){
+  if(preg_match('/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/iD', $mail)){
+    return true;
+  }else{
+    return false;
+  }
+}
 
 
 
@@ -20,6 +28,14 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト�
     if (in_array($key, $required)) {
       if(empty($val)) {
         array_push($errMsg,translation($key,$translation_list).'は必須項目です。');
+      }
+    }
+    // メールアドレスのチェック
+    if($mailCheck_flag){
+      if($key == 'mail' && !empty($val)) {
+        if(!mailCheck($val)){
+          array_push($errMsg,'メールアドレスの形式が正しくありません。');
+        }
       }
     }
     // チェックボックスの場合、$valを分割

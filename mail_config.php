@@ -19,3 +19,7 @@ $translation_list = array(
 // 'formのname属性の値','formのname属性の値'の形式で記述。
 // 必須項目がなければコメントアウトしてください。
 $required = array('name','mail');
+
+// メールアドレスのチェック
+// チェックする true / チェックしない false
+$mailCheck_flag = true;
