@@ -15,6 +15,10 @@ function translation($src, $dest){
 
 if($_POST){//$_POSTに値がなければ、入力ページにリダイレクトする。
   foreach($_POST as $key=>$val) {
+    // チェックボックスの場合、$valを分割
+    if(is_array($val)){
+      $val = implode(",", $val);
+    }
     print translation($key,$translation_list).'=>'.$val.'<br>';
   }
 }else{
