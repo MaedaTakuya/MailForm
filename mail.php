@@ -1,10 +1,20 @@
 <?php header("Content-Type:text/html;charset=utf-8");
-include_once('mail_config.php');//設定ファイル
-// --- 変数一覧 ---
-$errMsg = array();//エラーメッセージ用配列。
-$confirmMsg = array();
+// 言語設定、内部エンコーディングを指定
+mb_language("japanese");
+mb_internal_encoding("UTF-8");
 
-// --- 自作関数 ---
+// 設定ファイルの読み込み
+include_once('mail_config.php');
+
+// 変数一覧
+$errMsg = array();//エラーメッセージ用配列。
+$content_of_inquiry = array();//お問い合わせ内容
+$confirm_message = "";//確認画面表示用
+$adminMail_message = "";//管理人メール用
+$replyMail_message = "";//自動返信メール用
+$sendMail_flag = 0;//メール送信処理フラグ
+
+// 自作関数
 // name属性の値を日本語に置き換え
 function translation($src, $dest){
   return array_search($src, $dest);
@@ -22,7 +32,7 @@ function mailCheck($mail){
 
 
 
-if($_POST){//$_POSTに値がなければ、入力ページにリダイレクトする。
+if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
   foreach($_POST as $key=>$val) {
     // 必須項目のチェック
     if (in_array($key, $required)) {
@@ -42,21 +52,43 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト�
     if(is_array($val)){
       $val = implode(",", $val);
     }
-    array_push($confirmMsg,translation($key,$translation_list)."\n".$val);
+    array_push($content_of_inquiry,translation($key,$translation_list)."\n".$val);
   }
 
   if (!empty($errMsg)) {//エラーメッセージの表示
     for($i = 0 ; $i < count($errMsg); $i++){
       echo $errMsg[$i]."<br>";
     }
-  }else{//エラーメッセージがなければ確認画面の表示
-    for($i = 0 ; $i < count($confirmMsg); $i++){
-      echo "<p>".nl2br(htmlspecialchars($confirmMsg[$i]))."</p>\n";
+  }else{// エラーがなければお問い合わせ内容をセットし、メール送信処理を実行
+    for($i = 0 ; $i < count($content_of_inquiry); $i++){
+      $confirm_message .= "<p>".nl2br(htmlspecialchars($content_of_inquiry[$i]))."</p>\n";
+      $adminMail_message .= htmlspecialchars($content_of_inquiry[$i])."\n";
+      $replyMail_message .= htmlspecialchars($content_of_inquiry[$i])."\n";
+    }
+    // 管理人宛てメール
+    $adminMail_body = $adminMail_head.$adminMail_message.$adminMail_foot;
+    if(mb_send_mail($adminMail_to,$adminMail_subject,$adminMail_body,"From:$adminMail_from")){
+      $sendMail_flag = 1;
+    }else{
+      $sendMail_flag = 0;
+    }
+    // 自動返信メール
+    if($replyMail){
+      $replyMail_to = htmlspecialchars($_POST["mail"]);//返信先メールアドレス
+      $replyMail_body = $replyMail_head.$replyMail_message.$replyMail_foot;
+      if(mb_send_mail($replyMail_to,$replyMail_subject,$replyMail_body,"From:$replyMail_from")){
+        $sendMail_flag = 1;
+      }else{
+        $sendMail_flag = 0;
+      }
+    }
+    // メール送信後の表示
+    if($sendMail_flag){
+      echo $confirm_message;
+    }else{
+      echo "メール送信に失敗しました。";
     }
   }
-
-//ここにメール送信処理を追加予定。
-
 }else{
   header("Location: {$redirect_url}");
   exit;
