@@ -3,8 +3,9 @@
 mb_language("japanese");
 mb_internal_encoding("UTF-8");
 
-// 設定ファイルの読み込み
-include_once('mail_config.php');
+// ファイルの読み込み
+include_once('mail_config.php');//設定ファイル
+include_once('complete_view.php');//完了画面
 
 // 変数一覧
 $errMsg = array();//エラーメッセージ用配列。
@@ -84,7 +85,7 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
     }
     // メール送信後の表示
     if($sendMail_flag){
-      echo $confirm_message;
+      complete_view($confirm_message);
     }else{
       echo "メール送信に失敗しました。";
     }
