@@ -38,7 +38,11 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
     // 必須項目のチェック
     if (in_array($key, $required)) {
       if(empty($val)) {
-        array_push($errMsg,translation($key,$translation_list).'は必須項目です。');
+        if($translation_flag){
+          array_push($errMsg,translation($key,$translation_list).'は必須項目です。');
+        }else{
+          array_push($errMsg,$key.'は必須項目です。');
+        }
       }
     }
     // メールアドレスのチェック
@@ -53,7 +57,11 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
     if(is_array($val)){
       $val = implode(",", $val);
     }
-    array_push($content_of_inquiry,translation($key,$translation_list)."\n".$val);
+    if($translation_flag){
+      array_push($content_of_inquiry,translation($key,$translation_list)."\n".$val);
+    }else{
+      array_push($content_of_inquiry,$key."\n".$val);
+    }
   }
 
   if (!empty($errMsg)) {//エラーメッセージの表示

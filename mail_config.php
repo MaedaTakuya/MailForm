@@ -5,6 +5,9 @@ $redirect_url = "http://xxxx/mail.html";
 
 
 
+// formのname属性の値を翻訳する
+// 翻訳する true / 翻訳しない false
+$translation_flag = true;
 // 翻訳用の配列
 // '翻訳したい日本語' => 'formのname属性の値'の形式で記述。
 $translation_list = array(
