@@ -5,7 +5,7 @@ $redirect_url = "http://xxxx/mail.html";
 
 
 
-// formのname属性の値を翻訳する
+/* ------ formのname属性の値を翻訳 ------ */
 // 翻訳する true / 翻訳しない false
 $translation_flag = true;
 // 翻訳用の配列
@@ -22,14 +22,19 @@ $translation_list = array(
 
 
 
-// 必須項目の指定
+
+
+/* ------ 必須項目のチェック ------ */
+// チェックする true / チェックしない false
+$requiredCheck_flag = true;
 // '指定するname属性の値','指定するname属性の値'の形式で記述。
-// 必須項目がなければコメントアウトしてください。
 $required = array('name','mail','checkbox','body');
 
 
 
-// メールアドレスのチェック
+
+
+/* ------ メールアドレスのチェック ------ */
 // チェックする true / チェックしない false
 $mailCheck_flag = true;
 

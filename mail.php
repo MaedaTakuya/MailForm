@@ -36,12 +36,14 @@ function mailCheck($mail){
 if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
   foreach($_POST as $key=>$val) {
     // 必須項目のチェック
-    if (in_array($key, $required)) {
-      if(empty($val)) {
-        if($translation_flag){
-          array_push($errMsg,translation($key,$translation_list).'は必須項目です。');
-        }else{
-          array_push($errMsg,$key.'は必須項目です。');
+    if($requiredCheck_flag){
+      if (in_array($key, $required)) {
+        if(empty($val)) {
+          if($translation_flag){
+            array_push($errMsg,translation($key,$translation_list).'は必須項目です。');
+          }else{
+            array_push($errMsg,$key.'は必須項目です。');
+          }
         }
       }
     }
