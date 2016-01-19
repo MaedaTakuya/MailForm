@@ -39,6 +39,7 @@ $mailCheck_flag = true;
 // 送信する true / 送信しない false
 // 自動返信メールを送信する場合は、返信アドレス用のフォームのname属性をmailにし、メールアドレスのチェック、必須項目の指定を行ってください。
 $replyMail = true;
+$replyMail_name = "name";//自動返信メールに表示するお客様の名前。お名前入力欄のname属性を指定。
 $replyMail_subject = "自動返信メールの件名";//自動返信メールの件名
 $replyMail_from = "xxx@xxx.com";//自動返信メールに表示される送信元メールアドレス
 //自動返信メールの冒頭

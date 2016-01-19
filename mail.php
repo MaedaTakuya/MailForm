@@ -83,8 +83,9 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
     }
     // 自動返信メール
     if($replyMail){
+      $replyMail_name = isset($_POST[$replyMail_name])? htmlspecialchars($_POST[$replyMail_name])."様\n\n" : "";//お問い合わせ主の名前
       $replyMail_to = htmlspecialchars($_POST["mail"]);//返信先メールアドレス
-      $replyMail_body = $replyMail_head.$replyMail_message.$replyMail_foot;
+      $replyMail_body = $replyMail_name.$replyMail_head.$replyMail_message.$replyMail_foot;
       if(mb_send_mail($replyMail_to,$replyMail_subject,$replyMail_body,"From:$replyMail_from")){
         $sendMail_flag = 1;
       }else{
