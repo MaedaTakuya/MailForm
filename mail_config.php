@@ -74,11 +74,12 @@ EOM;
 
 
 /* ------ 管理人宛てメールの設定 ------ */
-// 管理人宛てメールの送信先メールアドレス
-// ※複数指定時は => "aaa@sample.com,bbb@sample.com")
-$adminMail_to = "xxx@xxx.com";
+// ※メールアドレスを複数指定する場合 => "aaa@sample.com,bbb@sample.com"
+$adminMail_to = "xxx@xxx.com";// 管理人宛てメールの送信先メールアドレス
+$adminMail_from = "xxx@xxx.com";// 管理人宛てメールに表示される送信元メールアドレス
+$adminMail_cc = "";// 管理人宛てメールのcc送信先メールアドレス ※不要なら空のままでOK.
+$adminMail_bcc = "";// 管理人宛てメールのbcc送信先メールアドレス ※不要なら空のままでOK.
 $adminMail_subject = "管理人宛てメールの件名";//管理人宛てメールの件名
-$adminMail_from = "xxx@xxx.com";//管理人宛てメールに表示される送信元メールアドレス
 // 管理人宛てメールの冒頭
 $adminMail_head = <<< EOM
 ホームページからお問い合わせメールが届きました。

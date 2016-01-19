@@ -76,7 +76,15 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
     }
     // 管理人宛てメール
     $adminMail_body = $adminMail_head.$adminMail_message.$adminMail_foot;
-    if(mb_send_mail($adminMail_to,$adminMail_subject,$adminMail_body,"From:$adminMail_from")){
+    $adminMail_from = "From:".$adminMail_from;
+    $adminMail_headers = $adminMail_from;
+    if($adminMail_cc != ""){
+      $adminMail_headers .= "\r\n"."Cc:".$adminMail_cc;
+    }
+    if($adminMail_bcc != ""){
+      $adminMail_headers .= "\r\n"."Bcc:".$adminMail_bcc;
+    }
+    if(mb_send_mail($adminMail_to,$adminMail_subject,$adminMail_body,$adminMail_headers)){
       $sendMail_flag = 1;
     }else{
       $sendMail_flag = 0;
