@@ -5,10 +5,12 @@ mb_internal_encoding("UTF-8");
 
 // ファイルの読み込み
 include_once('mail_config.php');//設定ファイル
+include_once('error_view.php');//エラー画面
 include_once('complete_view.php');//完了画面
 
 // 変数一覧
-$errMsg = array();//エラーメッセージ用配列。
+$err_list = array();//エラー項目用配列。
+$err_message = "";//エラー画面表示用
 $content_of_inquiry = array();//お問い合わせ内容
 $confirm_message = "";//確認画面表示用
 $adminMail_message = "";//管理人メール用
@@ -40,9 +42,9 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
       if (in_array($key, $required)) {
         if(empty($val)) {
           if($translation_flag){
-            array_push($errMsg,translation($key,$translation_list).'は必須項目です。');
+            array_push($err_list,translation($key,$translation_list).'は必須項目です。');
           }else{
-            array_push($errMsg,$key.'は必須項目です。');
+            array_push($err_list,$key.'は必須項目です。');
           }
         }
       }
@@ -51,7 +53,7 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
     if($mailCheck_flag){
       if($key == 'mail' && !empty($val)) {
         if(!mailCheck($val)){
-          array_push($errMsg,'メールアドレスの形式が正しくありません。');
+          array_push($err_list,'[メールアドレス]の形式が正しくありません。');
         }
       }
     }
@@ -66,10 +68,11 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
     }
   }
 
-  if (!empty($errMsg)) {//エラーメッセージの表示
-    for($i = 0 ; $i < count($errMsg); $i++){
-      echo $errMsg[$i]."<br>";
+  if (!empty($err_list)) {//エラーメッセージの表示
+    for($i = 0 ; $i < count($err_list); $i++){
+      $err_message .= "<p>".$err_list[$i]."</p>\n";
     }
+    error_view($err_message);
   }else{// エラーがなければお問い合わせ内容をセットし、メール送信処理を実行
     for($i = 0 ; $i < count($content_of_inquiry); $i++){
       $confirm_message .= "<p>".nl2br(htmlspecialchars($content_of_inquiry[$i]))."</p>\n";
@@ -110,7 +113,7 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
     if($sendMail_flag){
       complete_view($confirm_message);
     }else{
-      echo "メール送信に失敗しました。";
+      echo "メール送信に失敗しました。恐れ入りますが、しばらく時間をおいてから再度お試しください。";
     }
   }
 }else{
