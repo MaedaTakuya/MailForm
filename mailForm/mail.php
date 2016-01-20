@@ -89,6 +89,9 @@ if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
     if($adminMail_bcc != ""){
       $adminMail_headers .= "\r\n"."Bcc:".$adminMail_bcc;
     }
+    if($adminMail_reply_flag){
+      $adminMail_headers .= "\r\n"."Reply-To:".htmlspecialchars($_POST["mail"]);
+    }
     if(mb_send_mail($adminMail_to,$adminMail_subject,$adminMail_body,$adminMail_headers)){
       $sendMail_flag = 1;
     }else{
