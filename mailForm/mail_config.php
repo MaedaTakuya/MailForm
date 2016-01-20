@@ -1,7 +1,14 @@
 <?php
+/* ------ リファラーチェック ------ */
+// お問い合わせフォームを設置したサイトのドメインと、フォーム送信元のリファラーが同一かチェック
+// チェックする true / チェックしない false
+$referer_check_flag = true;
+$site_domain = "192.168.33.10";//フォームを設置したサイトのドメイン
 
 // PHPファイルに直接アクセスされた場合のリダイレクト先のURL（絶対パス）
-$redirect_url = "http://xxxx/mail.html";
+$redirect_url = "http://192.168.33.10/mail.html";
+
+
 
 
 

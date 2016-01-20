@@ -34,6 +34,19 @@ function mailCheck($mail){
 
 
 
+// リファラーチェック
+if($referer_check_flag){
+  $referer = $_SERVER["HTTP_REFERER"];
+  $url = parse_url($referer);
+  $referer_domain = $url['host'];
+  if($site_domain !== $referer_domain){
+    exit('<p>エラーが発生しました。<br>リファラーが一致しません。<br>処理を終了します。</p>');
+  }
+}
+
+
+
+
 
 if($_POST){//$_POSTに値がなければ、入力ページにリダイレクト
   foreach($_POST as $key=>$val) {
