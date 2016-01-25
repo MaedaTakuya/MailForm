@@ -1,6 +1,6 @@
 <?php
 
-function complete_view($pram){
+function complete_view($param){
 echo <<< EOM
 <!DOCTYPE html>
 <html>

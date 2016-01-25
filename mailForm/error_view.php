@@ -1,6 +1,6 @@
 <?php
 
-function error_view($pram){
+function error_view($param){
 echo <<< EOM
 <!DOCTYPE html>
 <html>
