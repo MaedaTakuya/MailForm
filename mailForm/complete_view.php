@@ -15,7 +15,7 @@ echo <<< EOM
 <div class="container">
 <h1>送信完了画面</h1>
 <p>下記内容を送信いたしました。</p>
-$pram
+$param
 </div>
 </body>
 </html>

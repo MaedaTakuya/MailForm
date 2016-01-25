@@ -15,7 +15,7 @@ echo <<< EOM
 <div class="container">
 <h1>エラー画面</h1>
 <p>下記内容を修正してください</p>
-$pram
+$param
 <a class="btn btn-default" href="javascript:history.back();">修正する</a>
 </div>
 </body>
