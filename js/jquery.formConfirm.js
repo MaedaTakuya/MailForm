@@ -1,14 +1,26 @@
 (function($) {
 	$.fn.formConfirm = function(options) {
 
-		this.click(function () {
+		/* *******************************************
+			'プラグイン呼び出し時に引数で上書き可能なオプション' : 'デフォルト値'
+			resetText  => resetボタンに表示するテキスト
+			submitText => submitボタンに表示するテキスト
+		******************************************* */
+		var opt = $.extend( {
+		'resetText'  : '修正する',
+		'submitText' : '送信する'
+		}, options);
+
+
+
+		this.submit(function () {
 			/* *******************************************
 				オリジナルのフォームをコピー
 				ラジオボタンのチェックの有無を取得
 				チェックボックスのチェックの有無を取得
 				セレクトボックスのselectedの位置を取得
 			******************************************* */
-			var originalForm = $(this).parents("form");
+			var originalForm = $(this);
 			var radioBool = [];
 			$("input[type='radio']",originalForm).each(function(i, elem) {
 				radioBool.push($(elem).prop('checked'));
@@ -32,7 +44,7 @@
 				チェックボックスにchecked/disabled/onclick="return false;"をセット
 				セレクトボックスにselected/disabledをセット
 			******************************************* */
-			var cloneForm = originalForm.clone(true);
+			var cloneForm = originalForm.clone();
 			$("input[type!='radio'][type!='checkbox'][type!='hidden'],textarea",cloneForm).each(function(i, elem) {
 				$(elem).attr("readonly","readonly");
 			});
@@ -54,22 +66,21 @@
 				$("option",elem).removeAttr("selected").attr("disabled","disabled");
 				$("option",elem).eq(optionIndex[i]).removeAttr("disabled").attr("selected","selected");
 			});
-			$(".js-modifyBtn",cloneForm).text("修正する").on('click', function() {
+			$("button[type='reset']",cloneForm).text(opt.resetText).on('click', function() {
 				$(".confirmView").remove();
 				return false;
 			});
-			$(".js-confirmBtn",cloneForm).text("送信する").on('click', function() {
-				cloneForm.submit();
-			});
+			$("button[type='submit']",cloneForm).text(opt.submitText);
 
 
 
 			/* *******************************************
 				確認画面を表示
+				デフォルトのsubmitイベントを中止
 			******************************************* */
 			originalForm.after(cloneForm);
 			cloneForm.wrap("<div class='confirmView'></div>");
-
+			return false;
 		});
 
 
