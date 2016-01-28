@@ -1,3 +1,12 @@
+/* *******************************************
+	jquery.formConfirm 1.0.0
+
+	The MIT License (MIT)
+	Copyright (c) 2016 MaedaTakuya
+
+	https://github.com/MaedaTakuya
+******************************************* */
+
 (function($) {
 	$.fn.formConfirm = function(options) {
 
